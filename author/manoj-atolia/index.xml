@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Research | Morgan Holland</title>
-    <link>/publication/</link>
-      <atom:link href="/publication/index.xml" rel="self" type="application/rss+xml" />
-    <description>Research</description>
+    <title>Manoj Atolia | Morgan Holland</title>
+    <link>/author/manoj-atolia/</link>
+      <atom:link href="/author/manoj-atolia/index.xml" rel="self" type="application/rss+xml" />
+    <description>Manoj Atolia</description>
     <generator>Source Themes Academic (https://sourcethemes.com/academic/)</generator><language>en-us</language><copyright>© 2021</copyright><lastBuildDate>Thu, 18 Nov 2021 00:00:00 +0000</lastBuildDate>
     <image>
       <url>/images/icon_hu0b7a4cb9992c9ac0e91bd28ffd38dd00_9727_512x512_fill_lanczos_center_3.png</url>
-      <title>Research</title>
-      <link>/publication/</link>
+      <title>Manoj Atolia</title>
+      <link>/author/manoj-atolia/</link>
     </image>
     
     <item>
@@ -17,14 +17,6 @@
       <link>/publication/working-paper-1/</link>
       <pubDate>Thu, 18 Nov 2021 00:00:00 +0000</pubDate>
       <guid>/publication/working-paper-1/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>The Welfare Benefits of Early Termination in Relationship Banking Contracts (Job Market Paper)</title>
-      <link>/publication/job-market_paper/</link>
-      <pubDate>Thu, 18 Nov 2021 00:00:00 +0000</pubDate>
-      <guid>/publication/job-market_paper/</guid>
       <description></description>
     </item>
     
