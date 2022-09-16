@@ -1,0 +1,26 @@
+project:
+  type: website
+
+website:
+  title: "Morgan Holland"
+  navbar:
+    left:
+      - href: index.qmd
+        text: Home
+      - href: Teaching.qmd
+        text: Teaching
+      - href: research.qmd
+        text: Academic Research
+      - href: applied_research.qmd
+        text: Applied Research and Consulting
+      - href: CV.qmd
+        text: CV
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+editor: visual
+

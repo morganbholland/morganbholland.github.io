@@ -1,0 +1,34 @@
+---
+title: "Applied Research"
+author: "Morgan Holland"
+editor: visual
+---
+
+In addition to my academic research, I work as a consultant at the FSU Center for Economic Forecasting and Analysis ([CEFA](https://cefa.fsu.edu/)). I have experience in many areas, including
+
+-   Economic impact analyses
+-   Econometric and statistical analysis
+-   Specific industries including
+    -   Tourism and travel
+    -   Energy and natural resources
+    -   Health and hospital services
+    -   Capital projects
+
+## Completed Projects
+
+-   [Florida State's Economic Impact](https://economic-impact.fsu.edu/). 2021 version based on 2020 data.
+-   [The Economic Impact of a Reduction in the Sales Tax on Manufactured Homes](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/Final\%20FMHA\%20Report\%202-15-22-CLEAN.pdf)
+-   An Economic Impact Analysis of Humana/Humana Florida Medicaid in Florida (Phase 1)
+
+## Completed Drafts
+
+-   The Economic Impact of Visitors to Members of the Florida African American Historical Preservation Society
+
+-   The Economic Impact of NASCAR operations in Florida
+-   The Economic Impact of the McGriff Channel Dredging Project
+-   An Economic Impact and Valuation Analysis of the Pensacola and Perdido Bays Estuary Program (PPBEP)
+-   An Economic Impact Analysis of Eighteen Blueprint Projects and Three Traffic Flow Analyses
+
+## In Progress
+
+-   An Economic Impact and Valuation Analysis of the St. Andrews Bay Estuary Program

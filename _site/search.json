@@ -1,0 +1,128 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Morgan Holland",
+    "section": "",
+    "text": "Biography\nI graduated with a PhD in Economics from Florida State University in July of 2022. My academic research interests include economic growth and inequality, the economics of automation, contracting with financial frictions, and the economics of disability. I have a rich background in economic theory and application, with experience in applied econometrics, DSGE and macroeconomic growth modeling, numerical programming, public utility regulation and compliance, modeling corporate financial decisions, and disability research.\nIn addition to my academic research, I am also an applied economist who uses insights from data and economic analysis to assist clients in planning, decision making, and advocacy. Examples of recent projects include analyzing the effects of a reduction in tax rates on manufactured homes, evaluating the economic impacts of road developments, and economic impact analyses of various firms operating in Florida.\nI earned a B.S. in Business Administration from Mississippi College in 2010 before working as an accountant for the State of Mississippi. I later worked as an auditor for the State of South Carolina Office of Regulatory Staff (ORS) where I reviewed rate increase requests from public utility companies and completed regulatory compliance audits. I left ORS in 2012 to pursue a Master's in Applied Economics from the University of South Carolina Moore School of Business, which I received in 2014."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "1 + 1\n\n[1] 2"
+  },
+  {
+    "objectID": "Teaching.html",
+    "href": "Teaching.html",
+    "title": "Teaching",
+    "section": "",
+    "text": "For all the courses I teach, I have developed custom instructional materials that are constantly evolving."
+  },
+  {
+    "objectID": "Teaching.html#econ4421-introduction-to-econometrics",
+    "href": "Teaching.html#econ4421-introduction-to-econometrics",
+    "title": "Teaching",
+    "section": "Econ4421: Introduction to Econometrics",
+    "text": "Econ4421: Introduction to Econometrics\nIn-person: Summer 2018\nOnline: Spring 2020\nTA: Fall 2020\nThis course introduces students to causal inference with data. In particular, the class focuses primarily on a rigorous look at multiple linear regression and the Gauss-Markov theorem. Once established, this class also examines common failures of the assumptions in the Gauss-Markov theorem and ways to account for them, including nonlinearity, heteroskedasticity, serial correlation, simple forms of endogeneity, and multicolinearity. I ordinarily demonstrate these concepts to students using R."
+  },
+  {
+    "objectID": "Teaching.html#ecp3113-economics-of-population",
+    "href": "Teaching.html#ecp3113-economics-of-population",
+    "title": "Teaching",
+    "section": "ECP3113: Economics of Population",
+    "text": "ECP3113: Economics of Population\nTA: Fall 2020"
+  },
+  {
+    "objectID": "Teaching.html#eco3223-financial-markets-banking-and-monetary-policy",
+    "href": "Teaching.html#eco3223-financial-markets-banking-and-monetary-policy",
+    "title": "Teaching",
+    "section": "ECO3223: Financial Markets, Banking, and Monetary Policy",
+    "text": "ECO3223: Financial Markets, Banking, and Monetary Policy\nTA: Fall 2019"
+  },
+  {
+    "objectID": "Teaching.html#testimonials-from-students",
+    "href": "Teaching.html#testimonials-from-students",
+    "title": "Teaching",
+    "section": "Testimonials from Students",
+    "text": "Testimonials from Students\n“Morgan Holland is the best instructor I have had for an economics core class. His lectures helped me understand the material, and he really seems to care about his students and wants them to pass.”\n“Holland’s availability and willingness to always help his students is what has allowed me to better comprehend the material. He always goes above and beyond to make sure students are able to have access to resources”"
+  },
+  {
+    "objectID": "Teaching.html#econ-3431-analysis-of-economic-data",
+    "href": "Teaching.html#econ-3431-analysis-of-economic-data",
+    "title": "Teaching",
+    "section": "Econ 3431: Analysis of Economic Data",
+    "text": "Econ 3431: Analysis of Economic Data\nIn-person: Summer 2017, Summer 2019, Summer 2021\nOnline: Summer 2020\nAnalysis of Economic Data is a class designed to re-introduce students to statistical concepts they may not have seen since an introductory statistics course. This class also introduces the mathematical rigor and familiarity with statistical software necessary to succeed in an introductory course in econometrics. I ordinarily teach this class using R."
+  },
+  {
+    "objectID": "research.html",
+    "href": "research.html",
+    "title": "Academic Research",
+    "section": "",
+    "text": "Here you can find abstracts and links to some of my academic research."
+  },
+  {
+    "objectID": "research.html#job-market-paper",
+    "href": "research.html#job-market-paper",
+    "title": "Academic Research",
+    "section": "Job Market Paper",
+    "text": "Job Market Paper"
+  },
+  {
+    "objectID": "research.html#submissions",
+    "href": "research.html#submissions",
+    "title": "Academic Research",
+    "section": "Submissions",
+    "text": "Submissions\nAtolia, Manoj; Holland, Morgan; Kreamer, Jonathan. Growth, Income Distribution and Policy Implications of Automation. Submitted to the Journal of Economic Dynamics and Control.\nAbstract: We study the distributional consequences of automation in a model with two kinds of agents - workers, who supply labor, and entrepreneurs, who own capital. We assume that production involves tasks that can be done by either capital or labor with varying productivity. We conceptualize automation as a shift in the relative productivity of capital at certain tasks that reduces the set of tasks done by labor. We contrast this with “traditional technical progress”, which is an increase in capital productivity at tasks previously done by capital. We derive a simple condition that governs whether labor share goes to zero in the long run, for given tax rates. We then characterize the distributional consequences of a shift in technology, using a tractable case that allows us to cleanly distinguish between automation and traditional technological progress. Finally, we endogenize the tax rate by computing the political economy equilibrium under majority voting, where the government has access to a capital tax and a transfer to workers (a “universal basic income”). We give conditions for zero or positive capital taxation in the steady state, and conditions under which workers prefer that the labor share go to zero and they derive income wholly from the UBI. Finally, we find that moving to majority voting during an episode of automation results in much smaller additional gains for workers than entrepreneurs."
+  },
+  {
+    "objectID": "research.html#working-papers",
+    "href": "research.html#working-papers",
+    "title": "Academic Research",
+    "section": "Working Papers",
+    "text": "Working Papers\nAtolia, Manoj; Holland, Morgan. The Welfare Benefits of Early Termination in Relationship Banking Contracts.\nAbstract: This paper explores the welfare benefits from relationship banking that arise from the information gleaned by banks through monitoring. If monitoring reveals not only current output, but also new information about future payoffs, lenders can shield themselves from future losses through early termination of lending agreements. In a competitive lending environment, banks shift the benefits of early termination to borrowers through the lending terms, improving not only the overall expected payoff of projects, but also the welfare of borrowers. Numerical results reveal that the benefits of long-term relationships based on the information revealed in monitoring could be substantial.\n\nAtolia, Manoj; Holland, Morgan; Kreamer, Jonathan. Disentangling the Impact of Automation on Wage, Wealth, and Income Inequality.\nAbstract: Changes in income inequality from advanced automation may stem from two sources. Wages may become more unequal as lower skill tasks that are currently performed by workers are done in the future by computerized capital. With higher relative wage income, high-skill workers will be able to afford investments in capital that are out of reach for low-skill workers, exacerbating income inequality further. Using a general equilibrium model of task-based production, we disentangle the impacts of automation on wage, wealth, and income inequality. For a 20% increase in output driven by automation, we predict a 70% increase in the wage premium for skilled workers and a 70.1% increase in the income premium (wages + capital income) for skilled workers, indicating that the majority of inequality from automation stems from wage inequality. Qualitatively this finding is the same for different elasticities of substitution, though quantitatively it differs somewhat. Finally, using this framework, we develop a political economy model to discuss the optimal taxing of capital in the context of increasing automation."
+  },
+  {
+    "objectID": "research.html#works-in-progress",
+    "href": "research.html#works-in-progress",
+    "title": "Academic Research",
+    "section": "Works in Progress",
+    "text": "Works in Progress\nHolland, Margaret; Holland, Morgan. The Impact of the Americans with Disabilities Act on Employment and Earnings of People with Disabilities: An Intersectional Approach.\nAbstract: The Americans with Disabilities Act (ADA) was designed to decrease discrimination by employers against people with disabilities and thereby improve the earnings and employment of people with disabilities. Motivated by intersectionality, we use difference in differences to determine how the ADA affected disparities in employment and earnings differently for marginalized populations."
+  },
+  {
+    "objectID": "applied_research.html",
+    "href": "applied_research.html",
+    "title": "Applied Research",
+    "section": "",
+    "text": "In addition to my academic research, I work as a consultant at the FSU Center for Economic Forecasting and Analysis (CEFA). I have experience in many areas, including"
+  },
+  {
+    "objectID": "applied_research.html#completed-projects",
+    "href": "applied_research.html#completed-projects",
+    "title": "Applied Research",
+    "section": "Completed Projects",
+    "text": "Completed Projects\n\nFlorida State’s Economic Impact. 2021 version based on 2020 data.\nThe Economic Impact of a Reduction in the Sales Tax on Manufactured Homes\nAn Economic Impact Analysis of Humana/Humana Florida Medicaid in Florida (Phase 1)"
+  },
+  {
+    "objectID": "applied_research.html#completed-drafts",
+    "href": "applied_research.html#completed-drafts",
+    "title": "Applied Research",
+    "section": "Completed Drafts",
+    "text": "Completed Drafts\n\nThe Economic Impact of Visitors to Members of the Florida African American Historical Preservation Society\nThe Economic Impact of NASCAR operations in Florida\nThe Economic Impact of the McGriff Channel Dredging Project\nAn Economic Impact and Valuation Analysis of the Pensacola and Perdido Bays Estuary Program (PPBEP)\nAn Economic Impact Analysis of Eighteen Blueprint Projects and Three Traffic Flow Analyses"
+  },
+  {
+    "objectID": "applied_research.html#in-progress",
+    "href": "applied_research.html#in-progress",
+    "title": "Applied Research",
+    "section": "In Progress",
+    "text": "In Progress\n\nAn Economic Impact and Valuation Analysis of the St. Andrews Bay Estuary Program"
+  },
+  {
+    "objectID": "CV.html",
+    "href": "CV.html",
+    "title": "CV",
+    "section": "",
+    "text": "Academic CV\nProfessional CV"
+  }
+]

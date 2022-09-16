@@ -1,0 +1,27 @@
+---
+pagetitle: "Morgan Holland"
+about:
+  template: trestles
+  image: "resources/images/morgan_holland_photo.jpg"
+  links:
+    - icon: twitter
+      text: twitter
+      href: https://twitter.com/MorganH67275844
+    - icon: github
+      text: Github
+      href: https://github.com/morganbholland
+---
+
+I am a PhD Economist with a rich background in providing answers to questions using economic and statistical analysis.
+
+# Biography
+
+I graduated with a PhD in Economics from Florida State University in July of 2022. My academic research interests include economic growth and inequality, the economics of automation, contracting with financial frictions, and the economics of disability. I have a rich background in economic theory and application, with experience in applied econometrics, DSGE and macroeconomic growth modeling, numerical programming, public utility regulation and compliance, modeling corporate financial decisions, and disability research.
+
+In addition to my academic research, I am also an applied economist who uses insights from data and economic analysis to assist clients in planning, decision making, and advocacy. Examples of recent projects include analyzing the effects of a reduction in tax rates on manufactured homes, evaluating the economic impacts of road developments, and economic impact analyses of various firms operating in Florida.
+
+I earned a B.S. in Business Administration from Mississippi
+College in 2010 before working as an accountant for the State of
+Mississippi. I later worked as an auditor for the State of South Carolina Office of Regulatory Staff (ORS) where I reviewed rate increase requests from public utility companies and completed regulatory compliance audits. I left ORS in 2012 to pursue a Master\'s in Applied Economics from the University of South Carolina Moore School of Business, which I received in 2014.
+
+

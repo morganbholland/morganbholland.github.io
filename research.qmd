@@ -1,0 +1,33 @@
+---
+title: "Academic Research"
+author: "Morgan Holland"
+editor: visual
+---
+
+Here you can find abstracts and links to some of my academic research.
+
+## Submissions
+
+
+Atolia, Manoj; Holland, Morgan; Kreamer, Jonathan. *Growth, Income Distribution and Policy Implications of Automation*. Submitted to the Journal of Economic Dynamics and Control.
+
+Abstract: We study the distributional consequences of automation in a model with two kinds of agents --- workers, who supply labor, and entrepreneurs, who own capital. We assume that production involves tasks that can be done by either capital or labor with varying productivity. We conceptualize automation as a shift in the relative productivity of capital at certain tasks that reduces the set of tasks done by labor. We contrast this with "traditional technical progress", which is an increase in capital productivity at tasks previously done by capital. We derive a simple condition that governs whether labor share goes to zero in the long run, for given tax rates. We then characterize the distributional consequences of a shift in technology, using a tractable case that allows us to cleanly distinguish between automation and traditional technological progress. Finally, we endogenize the tax rate by computing the political economy equilibrium under majority voting, where the government has access to a capital tax and a transfer to workers (a "universal basic income"). We give conditions for zero or positive capital taxation in the steady state, and conditions under which workers prefer that the labor share go to zero and they derive income wholly from the UBI. Finally, we find that moving to majority voting during an episode of automation results in much smaller additional gains for workers than entrepreneurs.
+
+
+## Working Papers
+
+Atolia, Manoj; **Holland, Morgan**. *The Welfare Benefits of Early Termination in Relationship Banking Contracts*.
+
+Abstract: This paper explores the welfare benefits from relationship banking that arise from the information gleaned by banks through monitoring. If monitoring reveals not only current output, but also new information about future payoffs, lenders can shield themselves from future losses through early termination of lending agreements. In a competitive lending environment, banks shift the benefits of early termination to borrowers through the lending terms, improving not only the overall expected payoff of projects, but also the welfare of borrowers. Numerical results reveal that the benefits of long-term relationships based on the information revealed in monitoring could be substantial.
+
+---
+
+Atolia, Manoj; **Holland, Morgan**; Kreamer, Jonathan. *Disentangling the Impact of Automation on Wage, Wealth, and Income Inequality*.
+
+Abstract: Changes in income inequality from advanced automation may stem from two sources. Wages may become more unequal as lower skill tasks that are currently performed by workers are done in the future by computerized capital. With higher relative wage income, high-skill workers will be able to afford investments in capital that are out of reach for low-skill workers, exacerbating income inequality further. Using a general equilibrium model of task-based production, we disentangle the impacts of automation on wage, wealth, and income inequality. For a 20% increase in output driven by automation, we predict a 70% increase in the wage premium for skilled workers and a 70.1% increase in the income premium (wages + capital income) for skilled workers, indicating that the majority of inequality from automation stems from wage inequality. Qualitatively this finding is the same for different elasticities of substitution, though quantitatively it differs somewhat. Finally, using this framework, we develop a political economy model to discuss the optimal taxing of capital in the context of increasing automation.
+
+## Works in Progress
+
+Holland, Margaret; **Holland, Morgan**. *The Impact of the Americans with Disabilities Act on Employment and Earnings of People with Disabilities: An Intersectional Approach*.
+
+Abstract: The Americans with Disabilities Act (ADA) was designed to decrease discrimination by employers against people with disabilities and thereby improve the earnings and employment of people with disabilities. Motivated by intersectionality, we use difference in differences to determine how the ADA affected disparities in employment and earnings differently for marginalized populations.

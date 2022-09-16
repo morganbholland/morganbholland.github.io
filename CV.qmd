@@ -1,0 +1,10 @@
+---
+title: "CV"
+editor: visual
+---
+
+This page has links to two versions of my CV, one for academia and one for professional use.
+
+[Academic CV](resources/documents/CVs/morgan_holland_cv_academic.pdf)
+
+[Professional CV](resources/documents/CVs/morgan_holland_cv_professional.pdf)

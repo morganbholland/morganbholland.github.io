@@ -1,0 +1,38 @@
+---
+title: "Teaching"
+editor: visual
+---
+
+For all the courses I teach, I have developed custom instructional materials that are constantly evolving.
+
+## Econ 3431: Analysis of Economic Data
+
+In-person: Summer 2017, Summer 2019, Summer 2021
+
+Online: Summer 2020
+
+Analysis of Economic Data is a class designed to re-introduce students to statistical concepts they may not have seen since an introductory statistics course. This class also introduces the mathematical rigor and familiarity with statistical software necessary to succeed in an introductory course in econometrics. I ordinarily teach this class using R.
+
+## Econ4421: Introduction to Econometrics
+
+In-person: Summer 2018
+
+Online: Spring 2020
+
+TA: Fall 2020
+
+This course introduces students to causal inference with data. In particular, the class focuses primarily on a rigorous look at multiple linear regression and the Gauss-Markov theorem. Once established, this class also examines common failures of the assumptions in the Gauss-Markov theorem and ways to account for them, including nonlinearity, heteroskedasticity, serial correlation, simple forms of endogeneity, and multicolinearity. I ordinarily demonstrate these concepts to students using R.
+
+## ECP3113: Economics of Population
+
+TA: Fall 2020
+
+## ECO3223: Financial Markets, Banking, and Monetary Policy
+
+TA: Fall 2019
+
+## Testimonials from Students
+
+"Morgan Holland is the best instructor I have had for an economics core class. His lectures helped me understand the material, and he really seems to care about his students and wants them to pass."
+
+"Holland's availability and willingness to always help his students is what has allowed me to better comprehend the material. He always goes above and beyond to make sure students are able to have access to resources"
