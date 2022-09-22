@@ -16,12 +16,17 @@ website:
         text: Applied Research and Consulting
       - href: CV.qmd
         text: CV
+      - href: blog/listing.qmd
+        text: Blog
 
 format:
   html:
-    theme: cosmo
+    theme: journal
     css: styles.css
     toc: true
 
 editor: visual
+
+execute:
+  freeze: auto
 
