@@ -8,6 +8,8 @@ website:
     left:
       - href: index.qmd
         text: Home
+      - href: about_me.qmd
+        text: About
       - href: Teaching.qmd
         text: Teaching
       - href: research.qmd
@@ -16,13 +18,14 @@ website:
         text: Applied Research and Consulting
       - href: CV.qmd
         text: CV
-      - href: blog/listing.qmd
+      - href: blog/index.qmd
         text: Blog
 
 format:
   html:
-    theme: journal
-    css: styles.css
+    theme: 
+      - styles.scss
+    
     toc: true
 
 editor: visual

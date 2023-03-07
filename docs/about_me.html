@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Morgan Holland</title>
+<title>Morgan Holland - About Me</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -33,6 +33,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
@@ -61,7 +62,7 @@ ul.task-list li input[type="checkbox"] {
 
 </head>
 
-<body class="nav-fixed fullcontent">
+<body class="nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -78,11 +79,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">
+    <a class="nav-link" href="./index.html">
  <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./about_me.html">
+    <a class="nav-link active" href="./about_me.html" aria-current="page">
  <span class="menu-text">About</span></a>
   </li>  
   <li class="nav-item">
@@ -115,28 +116,47 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#biography" id="toc-biography" class="nav-link active" data-scroll-target="#biography">Biography</a></li>
+  </ul>
+</nav>
+    </div>
 <!-- main -->
-<div class="quarto-about-trestles">
-  <div class="about-entity">
-    <img src="resources/images/morgan_holland_photo.jpg" class="about-image
-  rounded " style="width: 20em;">
-    <div class="about-links">
-  <a href="https://github.com/morganbholland" class="about-link">
-    <i class="bi bi-github"></i>
-     <span class="about-link-text">Github</span>
-  </a>
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">About Me</h1>
 </div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
   </div>
-  <div class="about-contents"><main class="content" id="quarto-document-content">
-<p>Welcome to the personal website of Morgan Holland. I am an economist working for the Center for Business and Economic Analysis (CBEA) at the University of Wyoming. If you are looking to interact with me in a professional capacity, here’s the website for the <a href="http://www.uwyo.edu/CBEA/index.html">CBEA</a>.</p>
-<p>The links at the top of the page will take you to pages where you can learn more about me, including my research and teaching experience, copies of my CV/resume (which may be out-of-date), and a blog where I will occasionally post about data, economics, and random coding things I do.</p>
-<p>I also plan on using this website as a work space to improve my website development and coding skills, so expect some dust.</p>
+  
+
+</header>
+
+<p>I am a PhD Economist with a rich background in providing answers to questions using economic and statistical analysis.</p>
+<section id="biography" class="level1">
+<h1>Biography</h1>
+<p>I earned a B.S. in Business Administration from Mississippi College in 2010 before working as an accountant for the State of Mississippi. I later worked as an auditor for the State of South Carolina Office of Regulatory Staff (ORS) where I reviewed rate increase requests from public utility companies and completed regulatory compliance audits. I left ORS in 2012 to pursue a Master’s in Applied Economics from the University of South Carolina Moore School of Business, which I received in 2014.</p>
+<p>I graduated with a PhD in Economics from Florida State University in July of 2022. My academic research interests included economic growth and inequality, the economics of automation, contracting with financial frictions, and the economics of disability. I have a rich background in economic theory and application, with experience in applied econometrics, DSGE and macroeconomic growth modeling, numerical methods, public utility regulation and compliance, modeling corporate financial decisions, and disability research.</p>
+<p>In addition to my academic research, I am also an applied economist who uses insights from data and economic analysis to assist clients in planning, decision making, and advocacy. Examples of recent projects include analyzing the effects of a reduction in tax rates on manufactured homes, evaluating the economic impacts of road developments, and economic impact analyses of various firms operating in Florida.</p>
+<p>I began working for the Center for Business and Economic Analysis (CBEA) at the University of Wyoming in January of 2023 as a Senior Research Economist. My primary focus at CBEA is the tourism and hospitality sectors in Wyoming. I am especially interested in researching and promoting policies that will help Wyoming take full advantage of its outdoor recreation resources while preserving them for future generations. I also provide support services to stakeholders in the tourism and hospitality sector through economic research and analysis.</p>
 
 
-</main></div>
-</div>
- <!-- /main -->
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -157,6 +177,13 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
   toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
   const clipboard = new window.ClipboardJS('.code-copy-button', {
     target: function(trigger) {
       return trigger.previousElementSibling;

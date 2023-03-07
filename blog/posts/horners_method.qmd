@@ -1,0 +1,99 @@
+---
+title: Numerical Methods in Economics AKA the Horner Algorithm
+format:
+  html:
+    code-fold: false
+jupyter:
+  kernelspec:
+    display_name: Julia 1.8.5
+    language: julia
+    name: julia-1.8
+description: A lesson in rewriting a computational problem.
+freeze: false
+categories:
+  - numerical methods
+  - julia
+---
+
+```{julia}
+using LinearAlgebra
+```
+
+As a side project from my usual work, I'm brushing up on both my Julia programming and my numerical methods by writing and explaining some of the main algorithms from Judd's *Numerical Methods in Economics*. It's a rather dated book, but the basic algorithms haven't changed any since then.
+
+## Horner's Method for Efficient Polynomial Evaluation
+
+The first algorithm we come across in this book is a method for efficiently evaluating polynomials. This is more of a pedagogical tool since any proper compiler will implement this method already. The lesson that should be taken from this notebook is to think carefully about your problem and see if you can reformulate it in such a way that the number of computations needed is smaller.
+
+The Horner algorithm is the most efficient method for evaluating polynomials of n degrees, requiring n additions and n multiplications. Consider the polynomial $1 + 2x + 3x^2 + 4x^3 + 5x^4$. Suppose we want to evaluate this polynomial when x = 5. We can compute the answer directly in Julia like so:
+
+```{julia}
+polyeval(x) = 1 + 2*x + 3*x^2 + 4*x^3 + 5*x^4
+polyeval(5)
+
+#Note: You don't have to do this in a function, you could simply do
+# 1 + 2*5 + 3*5^2 + 4*5^3 + 5*5^4
+# But Julia's JIT compiler makes it worthwhile to get into the habit of writing functions for most things. 
+```
+
+For small-order polynomials, this is perfectly acceptable. But notice that in order to compute this directly, we needed to to perform $n-1$ exponentiations, $n$ multiplications, and $n$ additions. We can decrease the computational burden significantly by employing Horner's algorithm. Suppose we factor our polynomial like so: $$1 + 2x + 3x^2 + 4x^3 + 5x^4 = 1 + x(2 + x(3 + x(4 + x \cdot 5)))$$ Now we only need to perform $n$ multiplications and $n$ additions. The following function implements Horner's algorithm in Julia:
+
+```{julia}
+horner = function(x, coef)
+    out = coef[end] # in Julia, variables created in a loop are local to that loop. So we do the first part of the evaluation outside the loop. 
+    for i in reverse(1:length(coef)-1) # iteratively evaluate the factorized polynomial. 
+        out = coef[i] + x*out
+    end
+    return out
+end
+```
+
+The function takes a vector of coefficients `coef` and a base `x` and performs Horner's algorithm to calculate the result. Let's verify that it works using our example polynomial:
+
+```{julia}
+x = 5
+coef = [1, 2, 3, 4, 5]
+```
+
+```{julia}
+horner(x,coef)
+```
+
+The function does indeed return the correct answer. As a bonus, let's time both functions to see which one is faster. To do so, we'll need to modify both functions slightly.
+
+```{julia}
+polyevaltimed(x, coef) = @time dot(coef, [x^(i-1) for i in 1:length(coef)]) # This is simply representing the polynomial as the dot product of a vector of coefficients and a vector of powers of x.
+
+hornertimed(x, coef) = @time horner(x, coef)
+```
+
+```{julia}
+println(polyevaltimed(5, coef))
+println(hornertimed(5,coef))
+```
+
+What's this? Why is the horner function slower? Let's try a much bigger polynomial.
+
+```{julia}
+coefbig = rand(Int,1000)
+```
+
+```{julia}
+hornertimed(x, coefbig)
+```
+
+```{julia}
+polyevaltimed(x, coefbig)
+```
+
+Horner's algorithm starts to become significantly faster when $n$ is large. In this example, $n=1000$ speeds up the computation by over an order of magnitude.
+
+As a final note, let's execute the slower method again on the polynomial of order $n$, but this time let's do it outside of a precompiled function:
+
+```{julia}
+@time dot(coefbig, [x^(i-1) for i in 1:length(coefbig)])
+```
+
+That's *way* slower. The lesson here is to define functions. Especially if you are going to be doing the same operation more than once. This will keep Julia from wasting time compiling the same code over and over again.
+
+As a final, *final* note, Horner's algorithm suffers from one problem that may give the original formulation the upper hand: it cannot be multithreaded. In Horner's algorithm, the computations must be performed sequentially, as the output of each step is used as input to the next. In contrast, in the original formulation each exponentiation can be done independently, then each multiplication, and finally the additions. I may make a separate post exploring this possibility in the future.

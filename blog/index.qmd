@@ -1,9 +1,11 @@
 ---
 title: "Blog"
 listing: 
-  contents: posts
+  contents: 
+    - "posts/*.qmd"
+    - "posts/*.ipynb"
   type: default
-type: table
+  categories: true
 ---
 
 I don't expect this to be updated frequently, but I thought I would include some blog posts here about some of the data work and other analysis I've done.
