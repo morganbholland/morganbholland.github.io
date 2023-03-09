@@ -1,0 +1,21 @@
+---
+title: "GDP and Income: A Tale of Two Sectors"
+format:
+  html:
+    code-fold: false
+jupyter:
+  kernelspec:
+    display_name: Julia 1.8.5
+    language: julia
+    name: julia-1.8
+description: Is sectoral contribution to GDP a good measure of that sector's importance to the local economy?
+freeze: false
+draft: true
+categories:
+  - tourism
+  - energy
+  - GDP
+  - regional economics
+---
+
+I love playing around with data from IPUMS

@@ -234,7 +234,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Note: You don't have to do this in a function, you could simply do</span></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 + 2*5 + 3*5^2 + 4*5^3 + 5*5^4</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># But Julia's JIT compiler makes it worthwhile to get into the habit of writing functions for most things. </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="42">
+<div class="cell-output cell-output-display" data-execution_count="3">
 <pre><code>3711</code></pre>
 </div>
 </div>
@@ -247,15 +247,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">end</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> out</span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="kw">end</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="43">
-<pre><code>#59 (generic function with 1 method)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>#11 (generic function with 1 method)</code></pre>
 </div>
 </div>
 <p>The function takes a vector of coefficients <code>coef</code> and a base <code>x</code> and performs Horner’s algorithm to calculate the result. Let’s verify that it works using our example polynomial:</p>
 <div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> <span class="fl">5</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>coef <span class="op">=</span> [<span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span>, <span class="fl">5</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="5">
 <pre><code>5-element Vector{Int64}:
  1
  2
@@ -266,7 +266,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">horner</span>(x,coef)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <pre><code>3711</code></pre>
 </div>
 </div>
@@ -275,7 +275,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyevaltimed</span>(x, coef) <span class="op">=</span> <span class="pp">@time</span> <span class="fu">dot</span>(coef, [x<span class="op">^</span>(i<span class="op">-</span><span class="fl">1</span>) for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(coef)]) <span class="co"># This is simply representing the polynomial as the dot product of a vector of coefficients and a vector of powers of x.</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="fu">hornertimed</span>(x, coef) <span class="op">=</span> <span class="pp">@time</span> <span class="fu">horner</span>(x, coef)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="46">
+<div class="cell-output cell-output-display" data-execution_count="7">
 <pre><code>hornertimed (generic function with 1 method)</code></pre>
 </div>
 </div>
@@ -285,59 +285,59 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell-output cell-output-stdout">
 <pre><code>  0.000003 seconds (1 allocation: 96 bytes)
 3711
-  0.000009 seconds (1 allocation: 16 bytes)
+  0.000003 seconds (1 allocation: 16 bytes)
 3711</code></pre>
 </div>
 </div>
 <p>What’s this? Why is the horner function slower? Let’s try a much bigger polynomial.</p>
 <div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coefbig <span class="op">=</span> <span class="fu">rand</span>(<span class="dt">Int</span>,<span class="fl">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="48">
+<div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>1000-element Vector{Int64}:
-  8227642923565041926
-  7768831858955875083
-  4639944118839851159
-  3752071378559282149
-  3019294867648763770
-   994188119502865269
-  6201224733739681712
-  2914683591982998684
-  5182794109904693239
-  6375850143641430364
- -7528069320056212561
- -2928388381469261578
- -8627459012776075742
+ -8296104388894653292
+ -8662645564670238615
+ -6896671548279214725
+  4153998978088732954
+ -8652802588747336645
+ -2107356052132805083
+  -256193372501646204
+   -84153943938963959
+  -782439655984131919
+  5788656535812813331
+ -7177899391911312236
+  2524072791064202339
+ -5065009501692634267
                     ⋮
-  4550219774533999038
- -1855889710326014765
-  4823493363999279231
-  8888746147461845214
-  2920067969363011525
-   -74035302579125820
-  7012371174122656674
-  3373412864608201528
- -5026830998280401806
-  8226490645188748187
-  7020500080983634678
- -2691513627269887993</code></pre>
+  6858781631432185363
+  7096963158822285123
+ -5068037153093122944
+  1116014599197894909
+ -5622043428020093100
+  6710884480820928288
+  7380603383845973572
+  1985540047523522227
+  7746561535579155185
+  9129054604936819015
+  1644937168296534657
+  5506011575533739570</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hornertimed</span>(x, coefbig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000003 seconds (1 allocation: 16 bytes)</code></pre>
+<pre><code>  0.000002 seconds (1 allocation: 16 bytes)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="49">
-<pre><code>-363891821873417335</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>379342493028868706</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyevaltimed</span>(x, coefbig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000042 seconds (1 allocation: 7.938 KiB)</code></pre>
+<pre><code>  0.000040 seconds (1 allocation: 7.938 KiB)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="50">
-<pre><code>-363891821873417335</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>379342493028868706</code></pre>
 </div>
 </div>
 <p>Horner’s algorithm starts to become significantly faster when <span class="math inline">\(n\)</span> is large. In this example, <span class="math inline">\(n=1000\)</span> speeds up the computation by over an order of magnitude.</p>
@@ -345,13 +345,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">dot</span>(coefbig, [x<span class="op">^</span>(i<span class="op">-</span><span class="fl">1</span>) for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(coefbig)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.031498 seconds (48.13 k allocations: 2.506 MiB, 99.01% compilation time)</code></pre>
+<pre><code>  0.033718 seconds (61.59 k allocations: 3.249 MiB, 86.57% compilation time)</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="51">
-<pre><code>-363891821873417335</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>379342493028868706</code></pre>
 </div>
 </div>
-<p>That’s <em>way</em> slower. The lesson here is to define functions. Especially if you are going to be doing the same operation over and over again.</p>
+<p>That’s <em>way</em> slower. The lesson here is to define functions. Especially if you are going to be doing the same operation more than once. This will keep Julia from wasting time compiling the same code over and over again.</p>
 <p>As a final, <em>final</em> note, Horner’s algorithm suffers from one problem that may give the original formulation the upper hand: it cannot be multithreaded. In Horner’s algorithm, the computations must be performed sequentially, as the output of each step is used as input to the next. In contrast, in the original formulation each exponentiation can be done independently, then each multiplication, and finally the additions. I may make a separate post exploring this possibility in the future.</p>
 
 
