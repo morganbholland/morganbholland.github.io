@@ -15,10 +15,6 @@ categories:
   - julia
 ---
 
-```{julia}
-using LinearAlgebra
-```
-
 As a side project from my usual work, I'm brushing up on both my Julia programming and my numerical methods by writing and explaining some of the main algorithms from Judd's *Numerical Methods in Economics*. It's a rather dated book, but the basic algorithms haven't changed any since then.
 
 ## Horner's Method for Efficient Polynomial Evaluation
@@ -26,6 +22,10 @@ As a side project from my usual work, I'm brushing up on both my Julia programmi
 The first algorithm we come across in this book is a method for efficiently evaluating polynomials. This is more of a pedagogical tool since any proper compiler will implement this method already. The lesson that should be taken from this notebook is to think carefully about your problem and see if you can reformulate it in such a way that the number of computations needed is smaller.
 
 The Horner algorithm is the most efficient method for evaluating polynomials of n degrees, requiring n additions and n multiplications. Consider the polynomial $1 + 2x + 3x^2 + 4x^3 + 5x^4$. Suppose we want to evaluate this polynomial when x = 5. We can compute the answer directly in Julia like so:
+
+```{julia}
+using LinearAlgebra
+```
 
 ```{julia}
 polyeval(x) = 1 + 2*x + 3*x^2 + 4*x^3 + 5*x^4
@@ -36,7 +36,7 @@ polyeval(5)
 # But Julia's JIT compiler makes it worthwhile to get into the habit of writing functions for most things. 
 ```
 
-For small-order polynomials, this is perfectly acceptable. But notice that in order to compute this directly, we needed to to perform $n-1$ exponentiations, $n$ multiplications, and $n$ additions. We can decrease the computational burden significantly by employing Horner's algorithm. Suppose we factor our polynomial like so: $$1 + 2x + 3x^2 + 4x^3 + 5x^4 = 1 + x(2 + x(3 + x(4 + x \cdot 5)))$$ Now we only need to perform $n$ multiplications and $n$ additions. The following function implements Horner's algorithm in Julia:
+For small-order polynomials, this is perfectly acceptable. But notice that in order to compute this directly, we needed to to perform $n-1$ exponentiations, $n$ multiplications, and $n$ additions. We can decrease the computational burden significantly by employing Horner's algorithm. Suppose we factor our polynomial like so: $$1 + 2x + 3x^2 + 4x^3 + 5x^4 = 1 + x(2 + x(3 + x(4 + x\dot 5)))$$ Now we only need to perform $n$ multiplications and $n$ additions. The following function implements Horner's algorithm in Julia:
 
 ```{julia}
 horner = function(x, coef)
@@ -68,14 +68,14 @@ hornertimed(x, coef) = @time horner(x, coef)
 ```
 
 ```{julia}
-println(polyevaltimed(5, coef))
-println(hornertimed(5,coef))
+print(polyevaltimed(5, coef))
+print(hornertimed(5,coef))
 ```
 
 What's this? Why is the horner function slower? Let's try a much bigger polynomial.
 
 ```{julia}
-coefbig = rand(Int,1000)
+coefbig = rand(Int,20)
 ```
 
 ```{julia}
@@ -86,14 +86,10 @@ hornertimed(x, coefbig)
 polyevaltimed(x, coefbig)
 ```
 
-Horner's algorithm starts to become significantly faster when $n$ is large. In this example, $n=1000$ speeds up the computation by over an order of magnitude.
-
-As a final note, let's execute the slower method again on the polynomial of order $n$, but this time let's do it outside of a precompiled function:
+What's happening here is a feature of Julia. When functions are defined, they are precompiled. Julia's compiler is smart enough to implement fast algorithms for code, so both functions end up being very fast at the machine level. To make a more fair comparison, we can force Julia to perform the calculation without precompiling by doing it outside a function.
 
 ```{julia}
 @time dot(coefbig, [x^(i-1) for i in 1:length(coefbig)])
 ```
 
-That's *way* slower. The lesson here is to define functions. Especially if you are going to be doing the same operation more than once. This will keep Julia from wasting time compiling the same code over and over again.
-
-As a final, *final* note, Horner's algorithm suffers from one problem that may give the original formulation the upper hand: it cannot be multithreaded. In Horner's algorithm, the computations must be performed sequentially, as the output of each step is used as input to the next. In contrast, in the original formulation each exponentiation can be done independently, then each multiplication, and finally the additions. I may make a separate post exploring this possibility in the future.
+Which is significantly slower. The `@time` macro tells us that Julia spent a huge portion of its time compiling this code, rather than simply executing it as it does with a pre-defined function. The lesson here is that Julia is fast. Very fast. But it requires some knowledge of the precompilation process to be its fastest. Another lesson to take away is that for most operations a precompiled function is the way to go.

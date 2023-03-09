@@ -1,0 +1,1179 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.2.335">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="Some simple GIS with Python">
+
+<title>Morgan Holland - Identifying Counties that Contain the St.&nbsp;Andrews Bay Watershed</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1.6em;
+  vertical-align: middle;
+}
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container">
+    <a class="navbar-brand" href="../../index.html">
+    <span class="navbar-title">Morgan Holland</span>
+    </a>
+  </div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html">
+ <span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about_me.html">
+ <span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../Teaching.html">
+ <span class="menu-text">Teaching</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../research.html">
+ <span class="menu-text">Academic Research</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../applied_research.html">
+ <span class="menu-text">Applied Research and Consulting</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../CV.html">
+ <span class="menu-text">CV</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../blog/index.html">
+ <span class="menu-text">Blog</span></a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#loading-packages-and-data" id="toc-loading-packages-and-data" class="nav-link active" data-scroll-target="#loading-packages-and-data">Loading Packages and Data</a></li>
+  <li><a href="#harmonizing-data" id="toc-harmonizing-data" class="nav-link" data-scroll-target="#harmonizing-data">Harmonizing Data</a></li>
+  <li><a href="#determining-the-relevant-counties." id="toc-determining-the-relevant-counties." class="nav-link" data-scroll-target="#determining-the-relevant-counties.">Determining the Relevant Counties.</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Identifying Counties that Contain the St.&nbsp;Andrews Bay Watershed</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">gis</div>
+    <div class="quarto-category">python</div>
+    <div class="quarto-category">analysis</div>
+  </div>
+  </div>
+
+<div>
+  <div class="description">
+    Some simple GIS with Python
+  </div>
+</div>
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+</header>
+
+<p>This document steps through the process and Python code needed to identify the counties in Florida that contain the St.&nbsp;Andrews Bay Watershed. This document assumes some knowledge of doing GIS work with GeoPandas in Python. If you don’t know anything about GeoPandas, you can learn more at <a href="https://automating-gis-processes.github.io/2016/index.html">Geocomputation with R</a>. This is the online textbook for a course in GIS using GeoPandas from the University of Helsinki.</p>
+<p>For more information about programming Python in general, I recommend <a href="https://automatetheboringstuff.com/">Automate the Boring Stuff with Python</a>.</p>
+<p>Additionally, I recommend installing the Anaconda distribution of Python, as it will come with MatPlotLib, Pandas, Numpy, and many other useful packages for data science/analysis. You can find the Anaconda distribution of Python at their <a href="https://www.anaconda.com/products/distribution">website</a>.</p>
+<p>Finally, this document was created as a Jupyter Notebook. For more information about Jupyter Notebooks, click <a href="https://jupyter.org/">here</a></p>
+<section id="loading-packages-and-data" class="level2">
+<h2 class="anchored" data-anchor-id="loading-packages-and-data">Loading Packages and Data</h2>
+<p>The first step is to import some necessary packages:</p>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If you have not already installed geopandas and matplotlib, install them using</p>
+<pre><code>conda install geopandas
+conda install matplotlib</code></pre>
+<p>in the terminal.</p>
+<p>Next, we need to load a GIS file that contains the county boundaries. I prefer the county map with detailed shorelines that can be downloaded by clicking this <a href="https://download.fgdl.org/pub/state/countyshore_areas_sep15.zip">link</a>.</p>
+<p>Once downloaded, unzip this folder into a subdirectory in the same folder as this .ipynb file. I created a folder called “mapping_data.” for this purpose. We load the counties using the following commands:</p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>counties_file <span class="op">=</span> <span class="st">"mapping_data\countyshore_areas_sep15.shp"</span> <span class="co">#define the name of the file</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>counties <span class="op">=</span> gpd.read_file(counties_file) <span class="co">#load the file.</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that you can also simpy do </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#counties = gpd.read_file("countyshore_areas_sep15.shp")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Next, we examine the first 5 lines of the data to make sure it looks ok.</p>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>STATEFP</th>
+      <th>COUNTYFP</th>
+      <th>COUNTYNS</th>
+      <th>GEOID</th>
+      <th>NAME</th>
+      <th>NAMELSAD</th>
+      <th>LSAD</th>
+      <th>CLASSFP</th>
+      <th>MTFCC</th>
+      <th>CSAFP</th>
+      <th>...</th>
+      <th>ALAND</th>
+      <th>AWATER</th>
+      <th>INTPTLAT</th>
+      <th>INTPTLON</th>
+      <th>DESCRIPT</th>
+      <th>FGDLAQDATE</th>
+      <th>AUTOID</th>
+      <th>SHAPE_AREA</th>
+      <th>SHAPE_LEN</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>WATER</td>
+      <td>WATER</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>...</td>
+      <td>0.000000e+00</td>
+      <td>0.0</td>
+      <td>None</td>
+      <td>None</td>
+      <td>WATER</td>
+      <td>2015-09-24</td>
+      <td>1</td>
+      <td>2.701470e+10</td>
+      <td>4.507754e+07</td>
+      <td>MULTIPOLYGON (((267492.080 663494.650, 267492....</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>12</td>
+      <td>053</td>
+      <td>00295751</td>
+      <td>12053</td>
+      <td>HERNANDO</td>
+      <td>HERNANDO COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.224611e+09</td>
+      <td>300943246.0</td>
+      <td>+28.5730426</td>
+      <td>-082.4662272</td>
+      <td>HERNANDO</td>
+      <td>2015-09-24</td>
+      <td>2</td>
+      <td>1.265956e+09</td>
+      <td>5.228369e+05</td>
+      <td>MULTIPOLYGON (((551025.130 521907.140, 553442....</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>12</td>
+      <td>129</td>
+      <td>00306912</td>
+      <td>12129</td>
+      <td>WAKULLA</td>
+      <td>WAKULLA COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>533</td>
+      <td>...</td>
+      <td>1.570621e+09</td>
+      <td>334901394.0</td>
+      <td>+30.1403575</td>
+      <td>-084.3751122</td>
+      <td>WAKULLA</td>
+      <td>2015-09-24</td>
+      <td>3</td>
+      <td>1.581877e+09</td>
+      <td>8.698931e+05</td>
+      <td>MULTIPOLYGON (((379858.150 679741.650, 379842....</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>12</td>
+      <td>131</td>
+      <td>00295727</td>
+      <td>12131</td>
+      <td>WALTON</td>
+      <td>WALTON COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>2.687690e+09</td>
+      <td>522844944.0</td>
+      <td>+30.6312106</td>
+      <td>-086.1766139</td>
+      <td>WALTON</td>
+      <td>2015-09-24</td>
+      <td>4</td>
+      <td>2.753186e+09</td>
+      <td>7.321848e+05</td>
+      <td>MULTIPOLYGON (((172458.210 778412.420, 172914....</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>12</td>
+      <td>127</td>
+      <td>00306921</td>
+      <td>12127</td>
+      <td>VOLUSIA</td>
+      <td>VOLUSIA COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>422</td>
+      <td>...</td>
+      <td>2.851714e+09</td>
+      <td>858278452.0</td>
+      <td>+29.0577690</td>
+      <td>-081.1617920</td>
+      <td>VOLUSIA</td>
+      <td>2015-09-24</td>
+      <td>5</td>
+      <td>2.923794e+09</td>
+      <td>2.026974e+06</td>
+      <td>MULTIPOLYGON (((696125.960 562367.650, 696123....</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 23 columns</p>
+</div>
+</div>
+</div>
+<p>The first row (after the column names) defines the water areas. All the other rows are counties. Let’s plot it to make sure it looks right:</p>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>counties.plot(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="mapping_files/figure-html/cell-5-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>This is a very basic plot. We can add more bells and whistles later if we want to. We just wanted to make sure all the county boundaries are there. Which it looks like they are.</p>
+<p>The next step is to load the watershed data. This was provided by the <a href="https://pc.fsu.edu/sasjbep">Saint Andrew and Saint Joseph Bay Estuary Program</a>. I’ll use the same steps as I did in loading the county data.</p>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>bay_file <span class="op">=</span> <span class="st">"mapping_data\St_Andrew_Bay_Watershed.shp"</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>bay <span class="op">=</span> gpd.read_file(bay_file)</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#Note again that it's perfectly fine to simply do</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#bay = gpd.read_file("St_Andrew_Bay_Watershed.shp")</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Again, let’s examine the first five rows:</p>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>bay.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>WATERSHED</th>
+      <th>SQMILES</th>
+      <th>ACRES</th>
+      <th>Label</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+      <th>geometry</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+      <td>MULTIPOLYGON (((657728.080 3285899.015, 657752...</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Here we see that this dataset is actually just a single observation. That’s fine. All the data we need is contained in the <code>geometry</code> column. Let’s plot it to see what it looks like:</p>
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>bay.plot(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="mapping_files/figure-html/cell-8-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Again, this plot is very basic, but all we wanted to see is that the watershed appears to be defined correctly.</p>
+</section>
+<section id="harmonizing-data" class="level2">
+<h2 class="anchored" data-anchor-id="harmonizing-data">Harmonizing Data</h2>
+<p>Now that we have the two datasets loaded, we need to harmonize their CRS’s in order to work with them. A CRS, or coordinate reference system, refers to the way the geometric objects are projected onto a map. For more information on CRS’s and working with them in GeoPandas, see <a href="https://automating-gis-processes.github.io/2016/Lesson3-projections.html">Lesson 3</a> from <em>Geocomputation with R</em>.</p>
+<p>Let’s look at the CRS’s of both datasets:</p>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>bay.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>&lt;Projected CRS: EPSG:26916&gt;
+Name: NAD83 / UTM zone 16N
+Axis Info [cartesian]:
+- E[east]: Easting (metre)
+- N[north]: Northing (metre)
+Area of Use:
+- name: North America - 90°W to 84°W and NAD83 by country
+- bounds: (-90.0, 23.97, -84.0, 84.0)
+Coordinate Operation:
+- name: UTM zone 16N
+- method: Transverse Mercator
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>counties.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>&lt;Projected CRS: PROJCS["Albers Conical Equal Area [Florida Geograp ...&gt;
+Name: Albers Conical Equal Area [Florida Geographic Data Library]
+Axis Info [cartesian]:
+- [east]: Easting (metre)
+- [north]: Northing (metre)
+Area of Use:
+- undefined
+Coordinate Operation:
+- name: unnamed
+- method: Albers Equal Area
+Datum: NAD83 (High Accuracy Reference Network)
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<p>As you can see, they do not use the same projection. Therefore, we’ll have to convert one to the other. The easiest way to do this is to change the CRS of the <code>counties</code> object.</p>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>counties_proj <span class="op">=</span> counties.copy() <span class="co">#create a new dataset that is a copy of counties. </span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>                                <span class="co"># This allows us to modify the data without affecting the original. </span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>counties_proj <span class="op">=</span> counties_proj.to_crs(epsg<span class="op">=</span><span class="dv">26916</span>) <span class="co">#change the projection</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Let’s check the projection of the <code>counties_proj</code> object to make sure it matches the watershed.</p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>counties_proj.crs</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>&lt;Projected CRS: EPSG:26916&gt;
+Name: NAD83 / UTM zone 16N
+Axis Info [cartesian]:
+- E[east]: Easting (metre)
+- N[north]: Northing (metre)
+Area of Use:
+- name: North America - 90°W to 84°W and NAD83 by country
+- bounds: (-90.0, 23.97, -84.0, 84.0)
+Coordinate Operation:
+- name: UTM zone 16N
+- method: Transverse Mercator
+Datum: North American Datum 1983
+- Ellipsoid: GRS 1980
+- Prime Meridian: Greenwich</code></pre>
+</div>
+</div>
+<p>As a final check, we can plot it again to see if it looks right.</p>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>counties_proj.plot(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="mapping_files/figure-html/cell-13-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Seems fine to me.</p>
+</section>
+<section id="determining-the-relevant-counties." class="level2">
+<h2 class="anchored" data-anchor-id="determining-the-relevant-counties.">Determining the Relevant Counties.</h2>
+<p>One simple way to determine which counties contain part of the watershed is to simply show them in the same plot.</p>
+<div class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">8</span>)) <span class="co">#define an emplty plot that we will fill with the two datasets</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>bay.geometry.boundary.plot(color<span class="op">=</span><span class="va">None</span>, edgecolor<span class="op">=</span><span class="st">'b'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, ax<span class="op">=</span>ax) <span class="co">#plot only the watershed borders. No fill.</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>counties_proj.geometry.boundary.plot(color<span class="op">=</span><span class="va">None</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, ax<span class="op">=</span>ax) <span class="co">#plot only the county borders. No fill.</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="13">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="mapping_files/figure-html/cell-14-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>It would not be hard at this point to simply look at a county map of Florida and get the names of the counties that contain the watershed. However, since we may want to do some further analysis of the counties and we may want to produce some nicer figures of the bay area, we might as well filter the data to contain only counties that overalp with the watershed.</p>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>bay_counties <span class="op">=</span> gpd.sjoin(counties_proj,bay)</span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>bay_counties.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="14">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>STATEFP</th>
+      <th>COUNTYFP</th>
+      <th>COUNTYNS</th>
+      <th>GEOID</th>
+      <th>NAME</th>
+      <th>NAMELSAD</th>
+      <th>LSAD</th>
+      <th>CLASSFP</th>
+      <th>MTFCC</th>
+      <th>CSAFP</th>
+      <th>...</th>
+      <th>SHAPE_AREA</th>
+      <th>SHAPE_LEN</th>
+      <th>geometry</th>
+      <th>index_right</th>
+      <th>WATERSHED</th>
+      <th>SQMILES</th>
+      <th>ACRES</th>
+      <th>Label</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>WATER</td>
+      <td>WATER</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>None</td>
+      <td>...</td>
+      <td>2.701470e+10</td>
+      <td>4.507754e+07</td>
+      <td>MULTIPOLYGON (((656790.384 3316776.851, 656790...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>12</td>
+      <td>131</td>
+      <td>00295727</td>
+      <td>12131</td>
+      <td>WALTON</td>
+      <td>WALTON COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>2.753186e+09</td>
+      <td>7.321848e+05</td>
+      <td>MULTIPOLYGON (((558825.154 3429125.747, 559281...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>12</td>
+      <td>013</td>
+      <td>00306919</td>
+      <td>12013</td>
+      <td>CALHOUN</td>
+      <td>CALHOUN COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.487458e+09</td>
+      <td>1.920278e+05</td>
+      <td>POLYGON ((680521.151 3387596.693, 680746.153 3...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>12</td>
+      <td>005</td>
+      <td>00295738</td>
+      <td>12005</td>
+      <td>BAY</td>
+      <td>BAY COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.992719e+09</td>
+      <td>1.132443e+06</td>
+      <td>MULTIPOLYGON (((647799.345 3382670.805, 647815...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>12</td>
+      <td>063</td>
+      <td>00295734</td>
+      <td>12063</td>
+      <td>JACKSON</td>
+      <td>JACKSON COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>2.468557e+09</td>
+      <td>2.267942e+05</td>
+      <td>POLYGON ((669268.534 3431030.466, 670890.596 3...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 30 columns</p>
+</div>
+</div>
+</div>
+<p>Notice that the first observation in this dataset is named “WATER.” This is the observation that holds all the water features in Florida. We need to get rid of this observation or any figures we try to produce will contain the whole coastline of Florida. You can try this out by running</p>
+<pre><code>bay_counties.plot()</code></pre>
+<p>if you want. So next we’ll drop the “WATER” observation:</p>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>bay_counties <span class="op">=</span> bay_counties[bay_counties[<span class="st">"NAME"</span>] <span class="op">!=</span> <span class="st">"WATER"</span>]</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>bay_counties.head(<span class="dv">7</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="15">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>STATEFP</th>
+      <th>COUNTYFP</th>
+      <th>COUNTYNS</th>
+      <th>GEOID</th>
+      <th>NAME</th>
+      <th>NAMELSAD</th>
+      <th>LSAD</th>
+      <th>CLASSFP</th>
+      <th>MTFCC</th>
+      <th>CSAFP</th>
+      <th>...</th>
+      <th>SHAPE_AREA</th>
+      <th>SHAPE_LEN</th>
+      <th>geometry</th>
+      <th>index_right</th>
+      <th>WATERSHED</th>
+      <th>SQMILES</th>
+      <th>ACRES</th>
+      <th>Label</th>
+      <th>Shape_Leng</th>
+      <th>Shape_Area</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>12</td>
+      <td>131</td>
+      <td>00295727</td>
+      <td>12131</td>
+      <td>WALTON</td>
+      <td>WALTON COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>2.753186e+09</td>
+      <td>7.321848e+05</td>
+      <td>MULTIPOLYGON (((558825.154 3429125.747, 559281...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>12</td>
+      <td>013</td>
+      <td>00306919</td>
+      <td>12013</td>
+      <td>CALHOUN</td>
+      <td>CALHOUN COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.487458e+09</td>
+      <td>1.920278e+05</td>
+      <td>POLYGON ((680521.151 3387596.693, 680746.153 3...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>12</td>
+      <td>005</td>
+      <td>00295738</td>
+      <td>12005</td>
+      <td>BAY</td>
+      <td>BAY COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.992719e+09</td>
+      <td>1.132443e+06</td>
+      <td>MULTIPOLYGON (((647799.345 3382670.805, 647815...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>12</td>
+      <td>063</td>
+      <td>00295734</td>
+      <td>12063</td>
+      <td>JACKSON</td>
+      <td>JACKSON COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>2.468557e+09</td>
+      <td>2.267942e+05</td>
+      <td>POLYGON ((669268.534 3431030.466, 670890.596 3...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>12</td>
+      <td>133</td>
+      <td>00295762</td>
+      <td>12133</td>
+      <td>WASHINGTON</td>
+      <td>WASHINGTON COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.595316e+09</td>
+      <td>2.404198e+05</td>
+      <td>POLYGON ((643879.684 3411685.915, 643992.119 3...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>12</td>
+      <td>045</td>
+      <td>00306917</td>
+      <td>12045</td>
+      <td>GULF</td>
+      <td>GULF COUNTY</td>
+      <td>06</td>
+      <td>H1</td>
+      <td>G4020</td>
+      <td>None</td>
+      <td>...</td>
+      <td>1.449020e+09</td>
+      <td>5.837829e+05</td>
+      <td>MULTIPOLYGON (((656790.384 3316776.851, 656779...</td>
+      <td>0</td>
+      <td>St. Andrew Bay</td>
+      <td>1156.573241</td>
+      <td>740209.835244</td>
+      <td>4.0</td>
+      <td>1.315842e+06</td>
+      <td>2.995523e+09</td>
+    </tr>
+  </tbody>
+</table>
+<p>6 rows × 30 columns</p>
+</div>
+</div>
+</div>
+<p>The “WATER” observation has indeed been dropped.</p>
+<p>Let’s plot the area again with the watershed superimposed on the counties. This time, I’ll add county names. Adding the county names is a somewhat complicated procedure, so I’ll step through it carefully. The first thing I need to do is use the <code>representative_point</code> method from the <code>shapely</code> package. GeoPandas uses the shapely package to manage geometric shapes, so there’s no need to load it separately. The <code>representative_point</code> method computes a point that is guaranteed to be within a polygon. That’s the point at which I will place the county names. I could also use the <code>centroid</code> method to find the “center of gravity” of each county, but that method is computationally more expensive, so I will stick with <code>representative_point</code>.</p>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Compute a new variable called 'coords'. The variable is computed by applying the representative point method to each county,</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#then extracting the resulting coordinates.</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>bay_counties[<span class="st">'coords'</span>] <span class="op">=</span> bay_counties[<span class="st">'geometry'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.representative_point().coords[:])</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>bay_counties[<span class="st">'coords'</span>] <span class="op">=</span> [coords[<span class="dv">0</span>] <span class="cf">for</span> coords <span class="kw">in</span> bay_counties[<span class="st">'coords'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Once I have representative points for each county, the next step is to show the counties and the watershed on the same plot, then add in the names at each representative point in <code>coords</code>.</p>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>fig, ax <span class="op">=</span> plt.subplots(figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">8</span>)) <span class="co">#Define an empty figure</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>bay.plot(color<span class="op">=</span><span class="st">'b'</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>,alpha<span class="op">=</span><span class="fl">0.5</span>, ax<span class="op">=</span>ax) <span class="co">#Put the watershed boundaries into the empty figure. This time I will use a </span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>                                                    <span class="co">#transparent blue as a fill.</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>bay_counties.geometry.boundary.plot(color<span class="op">=</span><span class="va">None</span>, edgecolor<span class="op">=</span><span class="st">'k'</span>, linewidth<span class="op">=</span><span class="fl">0.5</span>, ax<span class="op">=</span>ax) <span class="co"># Plot the county borders</span></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#The for loop below plots the county names at the coordinates specified by the coords variable.</span></span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> idx, row <span class="kw">in</span> bay_counties.iterrows():</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>    ax.text(row.coords[<span class="dv">0</span>], row.coords[<span class="dv">1</span>], s<span class="op">=</span>row[<span class="st">'NAME'</span>], size<span class="op">=</span><span class="st">'smaller'</span>,</span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>            horizontalalignment<span class="op">=</span><span class="st">'center'</span>, bbox<span class="op">=</span>{<span class="st">'facecolor'</span>:<span class="st">'white'</span>, <span class="st">'alpha'</span>:<span class="dv">0</span>, <span class="st">'pad'</span>: <span class="dv">2</span>, <span class="st">'edgecolor'</span>:<span class="st">'none'</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>                                               })</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img src="mapping_files/figure-html/cell-18-output-1.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Here we can easily see which counties overlap with the watershed.</p>
+<p>Finally, we want to determine how much of the watershed is in each county. In other words, we want to compare the area of the intersection of each county with the watershed with the total area of the watershed. The first step in doing so is to make a new variable for the portion of each county that is part of the watershed.</p>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a>bay_counties[<span class="st">'Watershed'</span>] <span class="op">=</span> bay_counties.geometry.<span class="bu">apply</span>(<span class="kw">lambda</span> x: x.intersection(bay.geometry[<span class="dv">0</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>bay_counties[<span class="st">'Watershed'</span>].plot(facecolor <span class="op">=</span> <span class="st">"none"</span>, edgecolor <span class="op">=</span> <span class="st">'k'</span>, figsize <span class="op">=</span> (<span class="dv">10</span>,<span class="dv">8</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="19">
+<pre><code>&lt;AxesSubplot:&gt;</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<p><img src="mapping_files/figure-html/cell-20-output-2.png" class="img-fluid"></p>
+</div>
+</div>
+<p>Next, we make a new variable that calculates the area of the <code>Watershed</code> variable. The CRS uses meters as its distance unit, so areas will be in square meters.</p>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>bay_counties[<span class="st">'Watershed_Area'</span>]<span class="op">=</span>bay_counties.Watershed.area</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Finally, we make a variable that calculates the percentage of the watershed area in each county:</p>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a>bay_counties[<span class="st">'Watershed_Proportion'</span>]<span class="op">=</span>bay_counties.Watershed_Area<span class="op">/</span>bay_counties.Watershed_Area.<span class="bu">sum</span>()<span class="op">*</span><span class="dv">100</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>I can print a table of the percentage of the watershed in each county by selecting the <code>NAME</code> and <code>Watershed_Proportion</code> columns</p>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>bay_counties[[<span class="st">'NAME'</span>,<span class="st">'Watershed_Proportion'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>NAME</th>
+      <th>Watershed_Proportion</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>3</th>
+      <td>WALTON</td>
+      <td>2.465263</td>
+    </tr>
+    <tr>
+      <th>18</th>
+      <td>CALHOUN</td>
+      <td>3.708971</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>BAY</td>
+      <td>61.935065</td>
+    </tr>
+    <tr>
+      <th>54</th>
+      <td>JACKSON</td>
+      <td>2.461653</td>
+    </tr>
+    <tr>
+      <th>58</th>
+      <td>WASHINGTON</td>
+      <td>9.570461</td>
+    </tr>
+    <tr>
+      <th>64</th>
+      <td>GULF</td>
+      <td>19.858587</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<p>Just as a check, we will make sure the percentages add up to 100.</p>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>bay_counties.Watershed_Proportion.<span class="bu">sum</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>100.0</code></pre>
+</div>
+</div>
+<p>The final task I’d like to accomplish in this document is to export the watershed proportion table to Excel for formatting.</p>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pandas <span class="im">import</span> ExcelWriter</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>writer <span class="op">=</span> ExcelWriter(<span class="st">"Watershed.xlsx"</span>, engine<span class="op">=</span><span class="st">'xlsxwriter'</span>)</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>bay_counties[[<span class="st">'NAME'</span>, <span class="st">'Watershed_Area'</span>, <span class="st">'Watershed_Proportion'</span>]].to_excel(writer, sheet_name<span class="op">=</span><span class="st">'data'</span>,index<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>writer.save()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>A lot more GIS work can be done in Python, and in a future post I hope to introduce some of the other work that is being done on the economic value of the St.&nbsp;Andrew Bay Watershed, but we’ll leave it off here for now.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

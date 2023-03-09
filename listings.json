@@ -1,0 +1,15 @@
+[
+  {
+    "listing": "/blog/listing.html",
+    "items": [
+      "/blog/posts/mapping.html"
+    ]
+  },
+  {
+    "listing": "/blog/index.html",
+    "items": [
+      "/blog/posts/mapping.html",
+      "/blog/posts/horners_method.html"
+    ]
+  }
+]
