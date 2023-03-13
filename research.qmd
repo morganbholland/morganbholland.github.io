@@ -8,11 +8,9 @@ Here you can find abstracts and links to some of my academic research.
 
 ## Submissions
 
-
 Atolia, Manoj; Holland, Morgan; Kreamer, Jonathan. *Growth, Income Distribution and Policy Implications of Automation*. Submitted to the Journal of Economic Dynamics and Control.
 
 Abstract: We study the distributional consequences of automation in a model with two kinds of agents --- workers, who supply labor, and entrepreneurs, who own capital. We assume that production involves tasks that can be done by either capital or labor with varying productivity. We conceptualize automation as a shift in the relative productivity of capital at certain tasks that reduces the set of tasks done by labor. We contrast this with "traditional technical progress", which is an increase in capital productivity at tasks previously done by capital. We derive a simple condition that governs whether labor share goes to zero in the long run, for given tax rates. We then characterize the distributional consequences of a shift in technology, using a tractable case that allows us to cleanly distinguish between automation and traditional technological progress. Finally, we endogenize the tax rate by computing the political economy equilibrium under majority voting, where the government has access to a capital tax and a transfer to workers (a "universal basic income"). We give conditions for zero or positive capital taxation in the steady state, and conditions under which workers prefer that the labor share go to zero and they derive income wholly from the UBI. Finally, we find that moving to majority voting during an episode of automation results in much smaller additional gains for workers than entrepreneurs.
-
 
 ## Working Papers
 
@@ -20,7 +18,7 @@ Atolia, Manoj; **Holland, Morgan**. *The Welfare Benefits of Early Termination i
 
 Abstract: This paper explores the welfare benefits from relationship banking that arise from the information gleaned by banks through monitoring. If monitoring reveals not only current output, but also new information about future payoffs, lenders can shield themselves from future losses through early termination of lending agreements. In a competitive lending environment, banks shift the benefits of early termination to borrowers through the lending terms, improving not only the overall expected payoff of projects, but also the welfare of borrowers. Numerical results reveal that the benefits of long-term relationships based on the information revealed in monitoring could be substantial.
 
----
+------------------------------------------------------------------------
 
 Atolia, Manoj; **Holland, Morgan**; Kreamer, Jonathan. *Disentangling the Impact of Automation on Wage, Wealth, and Income Inequality*.
 

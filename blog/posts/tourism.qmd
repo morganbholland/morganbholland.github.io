@@ -1,5 +1,5 @@
 ---
-title: "GDP and Income: A Tale of Two Sectors"
+title: "GDP and Income"
 format:
   html:
     code-fold: false
@@ -18,4 +18,10 @@ categories:
   - regional economics
 ---
 
-I love playing around with data from IPUMS
+```{r include=FALSE}
+library(tidyverse)
+```
+
+# Wyoming's GDP by Sector
+
+The following table breaks down Wyoming's GDP in 2022 into contributions by sector. Data comes from the Bureau of Economic Analysis:

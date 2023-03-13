@@ -4,7 +4,7 @@ author: "Morgan Holland"
 editor: visual
 ---
 
-In addition to my academic research, I work as a consultant at the FSU Center for Economic Forecasting and Analysis ([CEFA](https://cefa.fsu.edu/)). I have experience in many areas, including
+My primary job is as an economic consultant at the University of Wyoming's Center for Business and Economic Analysis. I have also worked in the past at Florida State University's Center for Economic Forecasting and Analysis. I have experience in
 
 -   Economic impact analyses
 -   Econometric and statistical analysis
@@ -17,17 +17,20 @@ In addition to my academic research, I work as a consultant at the FSU Center fo
 ## Completed Projects
 
 -   [Florida State's Economic Impact](https://economic-impact.fsu.edu/). 2021 version based on 2020 data.
--   [The Economic Impact of a Reduction in the Sales Tax on Manufactured Homes](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/Final\%20FMHA\%20Report\%202-15-22-CLEAN.pdf)
--   An Economic Impact Analysis of Humana/Humana Florida Medicaid in Florida (Phase 1)
+-   [The Economic Impact of a Reduction in the Sales Tax on Manufactured Homes](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/Final%20FMHA%20Report%202-15-22-CLEAN.pdf)
+-   [An Economic Impact Analysis of Humana in Florida (Phase 1)](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/Final%20Humana%20Report_0.pdf)
+-   [An Economic Impact Analysis of Florida NASCAR Activities - Final Report](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/NASCAR%20Final%20Report_0.pdf)
+-   [An Economic Impact Analysis of Eighteen Blueprint Projects and Three Traffic Flow Analyses - Final Report](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/BIA%20Final%20Report.pdf)
+-   An Economic Impact Analysis of Mosaic's Phosphate Operations in Florida - Final Report.
+-   [An Economic Impact and Valuation Analysis of the Pensacola and Perdido Bays Estuary Program (PPBEP)](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/PPBEP%20Final%20Report.pdf "PPBEP Final Report")[ - Final Report](https://cefa.fsu.edu/sites/g/files/upcbnu1851/files/PPBEP%20Final%20Report_0.pdf "PPBEP Final Report")
 
 ## Completed Drafts
 
 -   The Economic Impact of Visitors to Members of the Florida African American Historical Preservation Society
 
--   The Economic Impact of NASCAR operations in Florida
 -   The Economic Impact of the McGriff Channel Dredging Project
--   An Economic Impact and Valuation Analysis of the Pensacola and Perdido Bays Estuary Program (PPBEP)
--   An Economic Impact Analysis of Eighteen Blueprint Projects and Three Traffic Flow Analyses
+
+-   An Economic Impact Analysis of a Proposed Tallahassee Memorial Health Care (TMH) Campus in Panama City Beach, FL
 
 ## In Progress
 

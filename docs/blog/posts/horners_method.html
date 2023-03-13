@@ -283,9 +283,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">polyevaltimed</span>(<span class="fl">5</span>, coef))</span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">hornertimed</span>(<span class="fl">5</span>,coef))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000003 seconds (1 allocation: 96 bytes)
+<pre><code>  0.000002 seconds (1 allocation: 96 bytes)
 3711
-  0.000003 seconds (1 allocation: 16 bytes)
+  0.000005 seconds (1 allocation: 16 bytes)
 3711</code></pre>
 </div>
 </div>
@@ -294,32 +294,32 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coefbig <span class="op">=</span> <span class="fu">rand</span>(<span class="dt">Int</span>,<span class="fl">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
 <pre><code>1000-element Vector{Int64}:
- -8296104388894653292
- -8662645564670238615
- -6896671548279214725
-  4153998978088732954
- -8652802588747336645
- -2107356052132805083
-  -256193372501646204
-   -84153943938963959
-  -782439655984131919
-  5788656535812813331
- -7177899391911312236
-  2524072791064202339
- -5065009501692634267
+ -3492488395655115368
+  2464457242624337555
+ -5662513376974913452
+ -1510065389810720230
+   177958511545418563
+ -2548246649911588339
+  8053889577345754314
+ -2993736192672319341
+ -5990236018147147910
+ -7782089449045308155
+ -3891397775020389545
+ -8635887519967615834
+  2567657390720808442
                     ⋮
-  6858781631432185363
-  7096963158822285123
- -5068037153093122944
-  1116014599197894909
- -5622043428020093100
-  6710884480820928288
-  7380603383845973572
-  1985540047523522227
-  7746561535579155185
-  9129054604936819015
-  1644937168296534657
-  5506011575533739570</code></pre>
+  -827700957798788707
+  8695873654250506883
+  -632383545035102320
+ -3765759921985883691
+ -7663990578588859102
+ -4983413334628357718
+  2162716648522859993
+ -4384445303200905821
+ -5180820757449774745
+  1006401675046291407
+ -6620831146761193920
+  -783369668877822295</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="9">
@@ -328,16 +328,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>  0.000002 seconds (1 allocation: 16 bytes)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>379342493028868706</code></pre>
+<pre><code>7903279060725740955</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyevaltimed</span>(x, coefbig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000040 seconds (1 allocation: 7.938 KiB)</code></pre>
+<pre><code>  0.000036 seconds (1 allocation: 7.938 KiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>379342493028868706</code></pre>
+<pre><code>7903279060725740955</code></pre>
 </div>
 </div>
 <p>Horner’s algorithm starts to become significantly faster when <span class="math inline">\(n\)</span> is large. In this example, <span class="math inline">\(n=1000\)</span> speeds up the computation by over an order of magnitude.</p>
@@ -345,10 +345,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">dot</span>(coefbig, [x<span class="op">^</span>(i<span class="op">-</span><span class="fl">1</span>) for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(coefbig)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.033718 seconds (61.59 k allocations: 3.249 MiB, 86.57% compilation time)</code></pre>
+<pre><code>  0.032951 seconds (61.59 k allocations: 3.249 MiB, 86.29% compilation time)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>379342493028868706</code></pre>
+<pre><code>7903279060725740955</code></pre>
 </div>
 </div>
 <p>That’s <em>way</em> slower. The lesson here is to define functions. Especially if you are going to be doing the same operation more than once. This will keep Julia from wasting time compiling the same code over and over again.</p>

@@ -168,7 +168,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
  <span class="menu-text">CV</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../../blog/listing.qmd">
+    <a class="nav-link" href="../../blog/index.html">
  <span class="menu-text">Blog</span></a>
   </li>  
 </ul>
@@ -219,14 +219,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 
 </header>
 
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <p>As a side project from my usual work, I’m brushing up on both my Julia programming and my numerical methods by writing and explaining some of the main algorithms from Judd’s <em>Numerical Methods in Economics</em>. It’s a rather dated book, but the basic algorithms haven’t changed any since then.</p>
 <section id="horners-method-for-efficient-polynomial-evaluation" class="level2">
 <h2 class="anchored" data-anchor-id="horners-method-for-efficient-polynomial-evaluation">Horner’s Method for Efficient Polynomial Evaluation</h2>
 <p>The first algorithm we come across in this book is a method for efficiently evaluating polynomials. This is more of a pedagogical tool since any proper compiler will implement this method already. The lesson that should be taken from this notebook is to think carefully about your problem and see if you can reformulate it in such a way that the number of computations needed is smaller.</p>
 <p>The Horner algorithm is the most efficient method for evaluating polynomials of n degrees, requiring n additions and n multiplications. Consider the polynomial <span class="math inline">\(1 + 2x + 3x^2 + 4x^3 + 5x^4\)</span>. Suppose we want to evaluate this polynomial when x = 5. We can compute the answer directly in Julia like so:</p>
-<div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">using</span> <span class="bu">LinearAlgebra</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyeval</span>(x) <span class="op">=</span> <span class="fl">1</span> <span class="op">+</span> <span class="fl">2</span><span class="op">*</span>x <span class="op">+</span> <span class="fl">3</span><span class="op">*</span>x<span class="op">^</span><span class="fl">2</span> <span class="op">+</span> <span class="fl">4</span><span class="op">*</span>x<span class="op">^</span><span class="fl">3</span> <span class="op">+</span> <span class="fl">5</span><span class="op">*</span>x<span class="op">^</span><span class="fl">4</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">polyeval</span>(<span class="fl">5</span>)</span>
@@ -238,7 +238,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>3711</code></pre>
 </div>
 </div>
-<p>For small-order polynomials, this is perfectly acceptable. But notice that in order to compute this directly, we needed to to perform <span class="math inline">\(n-1\)</span> exponentiations, <span class="math inline">\(n\)</span> multiplications, and <span class="math inline">\(n\)</span> additions. We can decrease the computational burden significantly by employing Horner’s algorithm. Suppose we factor our polynomial like so: <span class="math display">\[1 + 2x + 3x^2 + 4x^3 + 5x^4 = 1 + x(2 + x(3 + x(4 + x\dot 5)))\]</span> Now we only need to perform <span class="math inline">\(n\)</span> multiplications and <span class="math inline">\(n\)</span> additions. The following function implements Horner’s algorithm in Julia:</p>
+<p>For small-order polynomials, this is perfectly acceptable. But notice that in order to compute this directly, we needed to to perform <span class="math inline">\(n-1\)</span> exponentiations, <span class="math inline">\(n\)</span> multiplications, and <span class="math inline">\(n\)</span> additions. We can decrease the computational burden significantly by employing Horner’s algorithm. Suppose we factor our polynomial like so: <span class="math display">\[1 + 2x + 3x^2 + 4x^3 + 5x^4 = 1 + x(2 + x(3 + x(4 + x \cdot 5)))\]</span> Now we only need to perform <span class="math inline">\(n\)</span> multiplications and <span class="math inline">\(n\)</span> additions. The following function implements Horner’s algorithm in Julia:</p>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>horner <span class="op">=</span> <span class="kw">function</span>(x, coef)</span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    out <span class="op">=</span> coef[<span class="kw">end</span>] <span class="co"># in Julia, variables created in a loop are local to that loop. So we do the first part of the evaluation outside the loop. </span></span>
@@ -280,70 +280,79 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </div>
 </div>
 <div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">polyevaltimed</span>(<span class="fl">5</span>, coef))</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">hornertimed</span>(<span class="fl">5</span>,coef))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">polyevaltimed</span>(<span class="fl">5</span>, coef))</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">println</span>(<span class="fu">hornertimed</span>(<span class="fl">5</span>,coef))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>  0.000002 seconds (1 allocation: 96 bytes)
-3711  0.000003 seconds (1 allocation: 16 bytes)
+3711
+  0.000005 seconds (1 allocation: 16 bytes)
 3711</code></pre>
 </div>
 </div>
 <p>What’s this? Why is the horner function slower? Let’s try a much bigger polynomial.</p>
 <div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coefbig <span class="op">=</span> <span class="fu">rand</span>(<span class="dt">Int</span>,<span class="fl">20</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coefbig <span class="op">=</span> <span class="fu">rand</span>(<span class="dt">Int</span>,<span class="fl">1000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>20-element Vector{Int64}:
-  3235561323396670333
-  8971265160802111670
-  -785655771370673243
-  8780181744127854957
- -8720828372435336744
-  -295045891585705747
- -1572558016047725461
-  4118118654179393255
-  4479669505398062108
-  1685535542579715166
- -4811356691720073807
- -4075592406024212182
-  4961165840269271232
-  3371653335192839714
- -1920543583870310598
- -6217662093170878123
-  -817883247962487698
- -7445874392923262358
-  3520577580072143355
-  3616796971624904448</code></pre>
+<pre><code>1000-element Vector{Int64}:
+ -3492488395655115368
+  2464457242624337555
+ -5662513376974913452
+ -1510065389810720230
+   177958511545418563
+ -2548246649911588339
+  8053889577345754314
+ -2993736192672319341
+ -5990236018147147910
+ -7782089449045308155
+ -3891397775020389545
+ -8635887519967615834
+  2567657390720808442
+                    ⋮
+  -827700957798788707
+  8695873654250506883
+  -632383545035102320
+ -3765759921985883691
+ -7663990578588859102
+ -4983413334628357718
+  2162716648522859993
+ -4384445303200905821
+ -5180820757449774745
+  1006401675046291407
+ -6620831146761193920
+  -783369668877822295</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hornertimed</span>(x, coefbig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000001 seconds (1 allocation: 16 bytes)</code></pre>
+<pre><code>  0.000002 seconds (1 allocation: 16 bytes)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>-6528664791107435091</code></pre>
+<pre><code>7903279060725740955</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="fu">polyevaltimed</span>(x, coefbig)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.000001 seconds (1 allocation: 224 bytes)</code></pre>
+<pre><code>  0.000036 seconds (1 allocation: 7.938 KiB)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>-6528664791107435091</code></pre>
+<pre><code>7903279060725740955</code></pre>
 </div>
 </div>
-<p>What’s happening here is a feature of Julia. When functions are defined, they are precompiled. Julia’s compiler is smart enough to implement fast algorithms for code, so both functions end up being very fast at the machine level. To make a more fair comparison, we can force Julia to perform the calculation without precompiling by doing it outside a function.</p>
+<p>Horner’s algorithm starts to become significantly faster when <span class="math inline">\(n\)</span> is large. In this example, <span class="math inline">\(n=1000\)</span> speeds up the computation by over an order of magnitude.</p>
+<p>As a final note, let’s execute the slower method again on the polynomial of order <span class="math inline">\(n\)</span>, but this time let’s do it outside of a precompiled function:</p>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode julia code-with-copy"><code class="sourceCode julia"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="pp">@time</span> <span class="fu">dot</span>(coefbig, [x<span class="op">^</span>(i<span class="op">-</span><span class="fl">1</span>) for i <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fu">length</span>(coefbig)])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>  0.032584 seconds (60.12 k allocations: 3.219 MiB, 86.64% compilation time)</code></pre>
+<pre><code>  0.032951 seconds (61.59 k allocations: 3.249 MiB, 86.29% compilation time)</code></pre>
 </div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>-6528664791107435091</code></pre>
+<pre><code>7903279060725740955</code></pre>
 </div>
 </div>
-<p>Which is significantly slower. The <code>@time</code> macro tells us that Julia spent a huge portion of its time compiling this code, rather than simply executing it as it does with a pre-defined function. The lesson here is that Julia is fast. Very fast. But it requires some knowledge of the precompilation process to be its fastest. Another lesson to take away is that for most operations a precompiled function is the way to go.</p>
+<p>That’s <em>way</em> slower. The lesson here is to define functions. Especially if you are going to be doing the same operation more than once. This will keep Julia from wasting time compiling the same code over and over again.</p>
+<p>As a final, <em>final</em> note, Horner’s algorithm suffers from one problem that may give the original formulation the upper hand: it cannot be multithreaded. In Horner’s algorithm, the computations must be performed sequentially, as the output of each step is used as input to the next. In contrast, in the original formulation each exponentiation can be done independently, then each multiplication, and finally the additions. I may make a separate post exploring this possibility in the future.</p>
 
 
 </section>
